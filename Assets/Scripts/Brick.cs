@@ -7,8 +7,11 @@ using UnityEngine.Events;
 public class Brick : MonoBehaviour
 {
     public UnityEvent<int> onDestroyed;
-    
     public int PointValue;
+    private Color lightPink = new Color(0.94f, 0.43f, 0.58f, 1f);
+    private Color midPink = new Color(0.8f, 0.17f, 0.37f, 1f);
+    private Color darkPink = new Color(0.5f, 0.05f, 0.17f, 1f);
+    Color errorColor = new Color(1f, 1f, 1f, 1f);
 
     void Start()
     {
@@ -18,16 +21,16 @@ public class Brick : MonoBehaviour
         switch (PointValue)
         {
             case 1 :
-                block.SetColor("_BaseColor", Color.green);
+                block.SetColor("_BaseColor", lightPink);
                 break;
             case 2:
-                block.SetColor("_BaseColor", Color.yellow);
+                block.SetColor("_BaseColor", midPink);
                 break;
             case 5:
-                block.SetColor("_BaseColor", Color.blue);
+                block.SetColor("_BaseColor", darkPink);
                 break;
             default:
-                block.SetColor("_BaseColor", Color.red);
+                block.SetColor("_BaseColor", errorColor);
                 break;
         }
         renderer.SetPropertyBlock(block);
