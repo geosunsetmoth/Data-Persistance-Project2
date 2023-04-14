@@ -9,8 +9,6 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [SerializeField] public static string playerName;
-    public GameObject nameText;
-    public TMP_Text nameMesh;
 
     string a = "Valerie";
     string b = "valerie";
@@ -18,28 +16,25 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         //Singleton Pattern
-        Instance = this;
-        if (Instance != null && Instance != this)
+        if (Instance == null)
         {
-            Destroy(this);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        //Fint TextMeshPro for the Username
-        nameText = GameObject.Find("Name Display");
-        nameMesh = nameText.GetComponent<TMP_Text>();
+
     }
 
     void Update()
     {
-        //Display username
-        if (nameMesh != null)
-        {
-            nameMesh.SetText(playerName);
-        }
+
     }
 
     public void ReadName(string s)
@@ -53,11 +48,5 @@ public class UIManager : MonoBehaviour
         //Set playerName variable
         playerName = s;
         Debug.Log(playerName);
-    }
-
-    //Load game
-    public void GoToGame()
-    {
-        SceneManager.LoadScene(1);
     }
 }
