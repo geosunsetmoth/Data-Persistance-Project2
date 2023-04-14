@@ -6,32 +6,58 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    private string playerName;
-    public TMP_Text nameDisplay; 
+    public static UIManager Instance;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public static string playerName;
+    public GameObject nameText;
+    public TMP_Text nameMesh;
+
+    string a = "Valerie";
+    string b = "valerie";
+
+    private void Awake()
     {
-
+        //Singleton Pattern
+        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        //Fint TextMeshPro for the Username
+        nameText = GameObject.Find("Name Display");
+        nameMesh = nameText.GetComponent<TMP_Text>();
+    }
+
     void Update()
     {
-        if (nameDisplay != null)
+        //Display username
+        if (nameMesh != null)
         {
-            nameDisplay.SetText(playerName);
+            nameMesh.SetText(playerName);
         }
-    }
-
-    public void GoToGame()
-    {
-        SceneManager.LoadScene(1);
     }
 
     public void ReadName(string s)
     {
+        //Easter egg for Valerie
+        if (s == a || s == b)
+        {
+            s = "Fairy Mermaid Kitten Princess";
+        }
+
+        //Set playerName variable
         playerName = s;
         Debug.Log(playerName);
+    }
+
+    //Load game
+    public void GoToGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

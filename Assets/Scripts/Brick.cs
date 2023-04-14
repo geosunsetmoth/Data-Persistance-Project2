@@ -15,6 +15,7 @@ public class Brick : MonoBehaviour
 
     void Start()
     {
+        //Color the brick
         var renderer = GetComponentInChildren<Renderer>();
 
         MaterialPropertyBlock block = new MaterialPropertyBlock();
@@ -34,6 +35,15 @@ public class Brick : MonoBehaviour
                 break;
         }
         renderer.SetPropertyBlock(block);
+    }
+
+    void Update()
+    {
+        // Delete the bricks at GameOver
+        if (MainManager.Instance.m_GameOver == true)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
