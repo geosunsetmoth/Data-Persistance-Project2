@@ -1807,6 +1807,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f185be3b93eed4d85b3ed4575d2752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: Kevin Anthony
+  playerScore: 0
+  nameText: {fileID: 0}
+  nameMesh: {fileID: 0}
 --- !u!4 &1645527782
 Transform:
   m_ObjectHideFlags: 0
@@ -1986,7 +1990,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1645527781}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ReadName
         m_Mode: 0
         m_Arguments:

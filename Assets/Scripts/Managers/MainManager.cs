@@ -10,18 +10,25 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager Instance;
 
-    public Brick BrickPrefab;
-    public int LineCount = 6;
-    public Rigidbody Ball;
+    [SerializeField] private Brick BrickPrefab;
+    [SerializeField] private int LineCount = 6;
+    [SerializeField] private Rigidbody Ball;
 
     public Text ScoreText;
     public GameObject GameOverText;
     
-    private bool m_Started = false;
-    private int m_Points;
+    private bool started = false;
+    public int points;
     
-    public bool m_GameOver = false;
+    public bool isGameOver = false;
 
+    public string playerName = "Kevin Anthony";
+    public int playerScore;
+
+    [SerializeField] private int highScore;
+    [SerializeField] private string MVP;
+
+    //Instantiate
     private void Awake()
     {
         Instance = this;
@@ -48,11 +55,12 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
-        if (!m_Started)
+        // Start Game
+        if (!started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                m_Started = true;
+                started = true;
                 float randomDirection = Random.Range(-1.0f, 1.0f);
                 Vector3 forceDir = new Vector3(randomDirection, 1, 0);
                 forceDir.Normalize();
@@ -61,7 +69,7 @@ public class MainManager : MonoBehaviour
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
         }
-        else if (m_GameOver)
+        else if (isGameOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -70,15 +78,29 @@ public class MainManager : MonoBehaviour
         } 
     }
 
+    // Manage Points
     void AddPoint(int point)
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        points += point;
+        ScoreText.text = $"Score: {points}";
+
+        if (points > highScore)
+        {
+            highScore = points;
+            GameManager.Instance.MVP = GameManager.Instance.playerName;
+        }
     }
 
+    // Manage GameOver
     public void GameOver()
     {
-        m_GameOver = true;
+        isGameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    // Load menu scene
+    public void GoToScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }

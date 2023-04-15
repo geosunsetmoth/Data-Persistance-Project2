@@ -40,7 +40,7 @@ public class Brick : MonoBehaviour
     void Update()
     {
         // Delete the bricks at GameOver
-        if (MainManager.Instance.m_GameOver == true)
+        if (MainManager.Instance.isGameOver == true)
         {
             gameObject.SetActive(false);
         }
