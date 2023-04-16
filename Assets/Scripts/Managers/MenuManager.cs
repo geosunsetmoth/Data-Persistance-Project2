@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-
-    public string playerName;
-
     public GameObject nameText;
     public TMP_Text nameMesh;
 
@@ -25,17 +22,16 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Display player's name
         if (nameMesh == null)
         {
             SetNameMesh();
         }
 
-        //Display username
-        if (nameMesh != null)
+        else
         {
-            nameMesh.SetText(playerName);
+            nameMesh.SetText(GameManager.Instance.playerName);
         }
-
     }
 
     public void ReadName(string s)
@@ -47,14 +43,8 @@ public class MenuManager : MonoBehaviour
         }
 
         //Set playerName variable
-        playerName = s;
-        Debug.Log(playerName);
-    }
-
-    //Load game scene
-    public void GoToScene()
-    {
-        SceneManager.LoadScene(1);
+        GameManager.Instance.playerName = s;
+        Debug.Log(GameManager.Instance.playerName);
     }
 
     //Find TextMeshPro for the Username
@@ -62,5 +52,12 @@ public class MenuManager : MonoBehaviour
     {
         nameText = GameObject.Find("Name Display");
         nameMesh = nameText.GetComponent<TMP_Text>();
+    }
+
+
+    //Load scene
+    public void GoToGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

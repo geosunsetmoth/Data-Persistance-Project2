@@ -28,6 +28,9 @@ public class MainManager : MonoBehaviour
     [SerializeField] private int highScore;
     [SerializeField] private string MVP;
 
+    public GameObject nameText;
+    public TMP_Text nameMesh;
+
     //Instantiate
     private void Awake()
     {
@@ -75,7 +78,18 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
-        } 
+        }
+
+        // Display player's name
+        if (nameMesh == null)
+        {
+            SetNameMesh();
+        }
+
+        else
+        {
+            nameMesh.SetText(GameManager.Instance.playerName);
+        }
     }
 
     // Manage Points
@@ -102,5 +116,12 @@ public class MainManager : MonoBehaviour
     public void GoToScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    //Find TextMeshPro for the Username
+    public void SetNameMesh()
+    {
+        nameText = GameObject.Find("Name Display");
+        nameMesh = nameText.GetComponent<TMP_Text>();
     }
 }
