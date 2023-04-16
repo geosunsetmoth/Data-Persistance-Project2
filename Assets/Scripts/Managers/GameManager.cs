@@ -23,4 +23,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Save()
+    {
+        SaveManager.SaveGame(this);
+    }
+
+    public void Load()
+    {
+        SaveData data = SaveManager.LoadSave();
+
+        playerName = data.lastPlayerName;
+        MVP = data.MVP;
+        highScore = data.highScore;
+    }
 }

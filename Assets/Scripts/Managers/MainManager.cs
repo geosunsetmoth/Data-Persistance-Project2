@@ -44,6 +44,8 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.Load();
+
         nameMesh = nameText.GetComponent<TMP_Text>();
         nameMesh.SetText(GameManager.Instance.playerName);
         MVPMesh = MVPText.GetComponent<TMP_Text>();
@@ -94,6 +96,9 @@ public class MainManager : MonoBehaviour
             GameManager.Instance.MVP = GameManager.Instance.playerName;
             MVPMesh.SetText(GameManager.Instance.MVP);
             highScoreMesh.SetText(GameManager.Instance.highScore.ToString());
+
+            GameManager.Instance.Save();
+
         }
     }
 

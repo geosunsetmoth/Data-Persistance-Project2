@@ -903,7 +903,7 @@ MonoBehaviour:
   ScoreText: {fileID: 188020406}
   GameOverText: {fileID: 474497238}
   RestartButton: {fileID: 268912190}
-  LeaderButton: {fileID: 0}
+  LeaderButton: {fileID: 287311025}
   points: 0
   isGameOver: 0
   playerName: Kevin Anthony

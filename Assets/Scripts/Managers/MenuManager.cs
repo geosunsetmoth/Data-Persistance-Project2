@@ -14,6 +14,11 @@ public class MenuManager : MonoBehaviour
     string a = "Valerie";
     string b = "valerie";
 
+    private void Start()
+    {
+            GameManager.Instance.Load();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -43,6 +48,7 @@ public class MenuManager : MonoBehaviour
             errorText.SetActive(false);
             GameManager.Instance.playerName = s;
             Debug.Log(GameManager.Instance.playerName);
+            GameManager.Instance.Save();
         }
 
         else
