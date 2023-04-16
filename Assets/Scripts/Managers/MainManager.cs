@@ -17,7 +17,7 @@ public class MainManager : MonoBehaviour
     public Text ScoreText;
     public GameObject GameOverText;
     public GameObject RestartButton;
-    public GameObject LeaderButton;
+    public GameObject ClearButton;
 
     private bool started = false;
     public int points;
@@ -108,7 +108,7 @@ public class MainManager : MonoBehaviour
         isGameOver = true;
         GameOverText.SetActive(true);
         RestartButton.SetActive(true);
-        LeaderButton.SetActive(true);
+        ClearButton.SetActive(true);
     }
 
     // Load menu scene
@@ -120,5 +120,15 @@ public class MainManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ClearScore()
+    {
+        GameManager.Instance.MVP = null;
+        GameManager.Instance.highScore = 0;
+        MVPMesh.SetText(GameManager.Instance.MVP);
+        highScoreMesh.SetText(GameManager.Instance.highScore.ToString());
+
+        GameManager.Instance.Save();
     }
 }

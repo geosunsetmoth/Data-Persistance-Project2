@@ -734,7 +734,7 @@ GameObject:
   - component: {fileID: 287311028}
   - component: {fileID: 287311027}
   m_Layer: 5
-  m_Name: Leaderboard Button
+  m_Name: Clear Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -806,8 +806,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 450625942}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: GoToScene
-        m_Mode: 3
+        m_MethodName: ClearScore
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -903,7 +903,7 @@ MonoBehaviour:
   ScoreText: {fileID: 188020406}
   GameOverText: {fileID: 474497238}
   RestartButton: {fileID: 268912190}
-  LeaderButton: {fileID: 287311025}
+  ClearButton: {fileID: 287311025}
   points: 0
   isGameOver: 0
   playerName: Kevin Anthony
@@ -2738,7 +2738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go to Leaderboad
+  m_text: Clear High Score
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
