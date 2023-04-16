@@ -16,7 +16,9 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
-    
+    public GameObject RestartButton;
+    public GameObject LeaderButton;
+
     private bool started = false;
     public int points;
     
@@ -25,11 +27,13 @@ public class MainManager : MonoBehaviour
     public string playerName = "Kevin Anthony";
     public int playerScore;
 
-    [SerializeField] private int highScore;
-    [SerializeField] private string MVP;
-
     public GameObject nameText;
     public TMP_Text nameMesh;
+    public GameObject MVPText;
+    public TMP_Text MVPMesh;
+    public GameObject highScoreText;
+    public TMP_Text highScoreMesh;
+
 
     //Instantiate
     private void Awake()
@@ -40,6 +44,13 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nameMesh = nameText.GetComponent<TMP_Text>();
+        nameMesh.SetText(GameManager.Instance.playerName);
+        MVPMesh = MVPText.GetComponent<TMP_Text>();
+        MVPMesh.SetText(GameManager.Instance.MVP);
+        highScoreMesh = highScoreText.GetComponent<TMP_Text>();
+        highScoreMesh.SetText(GameManager.Instance.highScore.ToString());
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -59,36 +70,15 @@ public class MainManager : MonoBehaviour
     private void Update()
     {
         // Start Game
-        if (!started)
+        if (!started && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                started = true;
-                float randomDirection = Random.Range(-1.0f, 1.0f);
-                Vector3 forceDir = new Vector3(randomDirection, 1, 0);
-                forceDir.Normalize();
+            started = true;
+            float randomDirection = Random.Range(-1.0f, 1.0f);
+            Vector3 forceDir = new Vector3(randomDirection, 1, 0);
+            forceDir.Normalize();
 
-                Ball.transform.SetParent(null);
-                Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
-            }
-        }
-        else if (isGameOver)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-        }
-
-        // Display player's name
-        if (nameMesh == null)
-        {
-            SetNameMesh();
-        }
-
-        else
-        {
-            nameMesh.SetText(GameManager.Instance.playerName);
+            Ball.transform.SetParent(null);
+            Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
         }
     }
 
@@ -98,10 +88,12 @@ public class MainManager : MonoBehaviour
         points += point;
         ScoreText.text = $"Score: {points}";
 
-        if (points > highScore)
+        if (points > GameManager.Instance.highScore)
         {
-            highScore = points;
+            GameManager.Instance.highScore = points;
             GameManager.Instance.MVP = GameManager.Instance.playerName;
+            MVPMesh.SetText(GameManager.Instance.MVP);
+            highScoreMesh.SetText(GameManager.Instance.highScore.ToString());
         }
     }
 
@@ -110,18 +102,18 @@ public class MainManager : MonoBehaviour
     {
         isGameOver = true;
         GameOverText.SetActive(true);
+        RestartButton.SetActive(true);
+        LeaderButton.SetActive(true);
     }
 
     // Load menu scene
-    public void GoToScene()
+    public void GoToScene(int n)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(n);
     }
 
-    //Find TextMeshPro for the Username
-    public void SetNameMesh()
+    public void Restart()
     {
-        nameText = GameObject.Find("Name Display");
-        nameMesh = nameText.GetComponent<TMP_Text>();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

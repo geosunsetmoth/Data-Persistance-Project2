@@ -9,15 +9,10 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject nameText;
     public TMP_Text nameMesh;
+    public GameObject errorText;
 
     string a = "Valerie";
     string b = "valerie";
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -43,8 +38,17 @@ public class MenuManager : MonoBehaviour
         }
 
         //Set playerName variable
-        GameManager.Instance.playerName = s;
-        Debug.Log(GameManager.Instance.playerName);
+        if (s.Length <= 100)
+        {
+            errorText.SetActive(false);
+            GameManager.Instance.playerName = s;
+            Debug.Log(GameManager.Instance.playerName);
+        }
+
+        else
+        {
+            errorText.SetActive(true);
+        }
     }
 
     //Find TextMeshPro for the Username
